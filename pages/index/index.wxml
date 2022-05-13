@@ -1,0 +1,9 @@
+<!--index.wxml-->
+<view class="container">
+    <text class="name" style="margin-bottom: 10px;" >食府名</text>
+    <image class="image" src="https://qcloud.dpfile.com/pc/wH4AzxreNmtWa7VVaHZF_02W5Y07IwHAruaQ34V1wlEjB9PnpfRGfwdf-EZnI0PtJ-0BTbjj60XOL1huyULDDVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"></image>
+    <text class="dishes">酱香牛肉面</text>
+    <van-button style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</van-button>
+    <van-button style="margin-bottom: 10px;width: 50vw;" block>下一个</van-button>
+
+</view>

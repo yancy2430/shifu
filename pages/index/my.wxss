@@ -1,0 +1,8 @@
+/* pages/index/my.wxss */
+.my_header{
+  padding: 20px;
+}
+.username{
+  font-size: 20px;
+
+}
