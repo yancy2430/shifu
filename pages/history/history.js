@@ -1,26 +1,33 @@
-// pages/index/my.js
+// pages/history/history.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    historys:[],
+  },
 
-  },
-  goShifu:function(){
-    wx.navigateTo({
-      url: '/pages/shifu/shifuList',
-    })
-  },
-  goHistory(){
-    wx.navigateTo({
-      url: '/pages/history/history',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    wx.setNavigationBarTitle({
+      title: '吃啥记录',
+    })
+    let that = this;
+    wx.request({
+      url: 'http://101.35.113.218:7116/restaurants/getHistory',
+      method:"POST",
+      data:{
+        user_id:"string"
+      },
+      success(res){
+        that.setData({
+          historys:res.data.history
+        })
+      }
+    })
 
   },
 

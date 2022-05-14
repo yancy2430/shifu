@@ -1,9 +1,28 @@
 
 <van-cell-group>
-  <van-swipe-cell wx:for="i in 10" right-width="{{ 50 }}" left-width="{{ 0 }}">
-  <van-cell title="食府1" is-link />
+  <van-swipe-cell wx:for="i in 10" right-width="{{ 100 }}" left-width="{{ 0 }}">
+  <van-cell bindtap="onShifu" title="食府{{index+1}}" is-link />
   <view slot="right">
-    <view class="delbtn">删除</view>
+    <view class="action">
+      <view class="editbtn">改名</view>
+      <view class="delbtn">删除</view>
+    </view>
   </view>
 </van-swipe-cell>
 </van-cell-group>
+<view style="margin: 16px;">
+  <van-button type="primary" block bind:click="showPopup">添加食府</van-button>
+</view>
+<van-popup show="{{ show }}" bind:close="onClose">
+  <van-field
+    placeholder="请输入食府名"
+    bind:change="onChange"
+    use-button-slot
+  >
+
+  <van-button slot="button" size="small" type="primary">
+      保存
+    </van-button>
+  </van-field>
+</van-popup>
+

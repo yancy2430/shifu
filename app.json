@@ -3,7 +3,9 @@
     "pages/index/index",
     "pages/index/map",
     "pages/index/my",
-    "pages/shifu/shifuList"
+    "pages/shifu/shifuList",
+    "pages/history/history",
+    "pages/shifu/shifu"
   ],
   "tabBar": {
     "borderStyle": "black",

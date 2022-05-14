@@ -1,4 +1,4 @@
-// pages/index/my.js
+// pages/shifu/shifu.js
 Page({
 
   /**
@@ -7,23 +7,29 @@ Page({
   data: {
 
   },
-  goShifu:function(){
-    wx.navigateTo({
-      url: '/pages/shifu/shifuList',
-    })
-  },
-  goHistory(){
-    wx.navigateTo({
-      url: '/pages/history/history',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    wx.setNavigationBarTitle({
+      title: '食物管理',
+    })
   },
-
+  delFood(){
+    wx.showModal({
+      title: '提示',
+      content: '确定删除此食物？',
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

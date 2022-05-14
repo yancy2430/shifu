@@ -5,7 +5,7 @@
         <van-image width="80" height="80" fit="cover" round src="https://img.yzcdn.cn/vant/cat.jpeg" />
       </van-col>
       <van-col span="16">
-          <view class="username" style="align-items: center;justify-content: center;margin-top: 10px;">用户名</view>
+          <view class="username" style="align-items: center;justify-content: center;margin-top: 10px;">落日天涯</view>
           <view class="signature" style="margin-top: 5px;">面朝大海，春暖花开</view>
       </van-col>
     </van-row>
@@ -15,7 +15,7 @@
   <view>
     <van-cell-group>
       <van-cell title="食府管理" is-link bindtap="goShifu" />
-      <van-cell title="选择记录" is-link />
+      <van-cell title="选择记录" is-link bindtap="goHistory" />
     </van-cell-group>
   </view>
 </view>

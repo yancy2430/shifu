@@ -1,0 +1,3 @@
+<van-cell-group>
+  <van-cell wx:for="{{historys}}" title="{{item.food}}" value="食府1" label="{{item.time}}"/>
+</van-cell-group>

@@ -33,6 +33,22 @@ Page({
       }
     })
   },
+  onGoFood(item){
+    console.log(item)
+    wx.showModal({
+      title: '提示',
+      cancelText:"自行前往",
+      confirmText:"导航前往",
+      content: '选中了吃:'+item.currentTarget.dataset.food,
+      success (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   onNext(){
     let that = this;
     wx.request({
