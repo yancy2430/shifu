@@ -1,2 +1,6 @@
-<map class="map"></map>
-
+<map class="map" scale="11" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}"></map>
+<view>
+  <van-cell-group>
+  <van-cell wx:for="{{stores}}" title="{{item.title}} {{item._distance}}米" data-id="{{item.id}}" data-title="{{item.title}}" bindtap="onClick" value="{{item.category}}" label="{{item.address}}" />
+</van-cell-group>
+</view>

@@ -1,4 +1,4 @@
-// pages/index/my.js
+// pages/shifu/shifuList.js
 Page({
 
   /**
@@ -7,11 +7,7 @@ Page({
   data: {
 
   },
-  goShifu:function(){
-    wx.navigateTo({
-      url: '/pages/shifu/shifuList',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

@@ -1,0 +1,6 @@
+/* pages/shifu/shifuList.wxss */
+.delbtn{
+  color: #ffffff;
+  padding: 10px;
+  background-color: red;
+}
