@@ -32,7 +32,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "食府小程序",
+    "navigationBarTitleText": "吃啥",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#eeeeee"
   },

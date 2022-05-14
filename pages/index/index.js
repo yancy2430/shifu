@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    foodData:{},
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -11,18 +12,42 @@ Page({
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
   onLoad() {
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
       })
     }
+    let that = this;
+    wx.request({
+      url: 'http://101.35.113.218:7116/restaurants/getRestaurants',
+      method:"POST",
+      data:{
+        user_id:"string",
+      },
+      success(res){
+          console.log(res)
+          that.setData({
+            foodData:res.data
+          })
+      }
+    })
+  },
+  onNext(){
+    let that = this;
+    wx.request({
+      url: 'http://101.35.113.218:7116/restaurants/next',
+      method:"POST",
+      data:{
+        user_id:"string",
+      },
+      success(res){
+          console.log(res)
+          that.setData({
+            foodData:res.data
+          })
+      }
+    })
   },
   getUserProfile(e) {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗

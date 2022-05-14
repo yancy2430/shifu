@@ -1,6 +1,10 @@
 <map class="map" scale="11" markers="{{markers}}" longitude="{{longitude}}" latitude="{{latitude}}"></map>
+<van-search value="{{ value }}" placeholder="请输入搜索关键词" />
 <view>
   <van-cell-group>
-  <van-cell wx:for="{{stores}}" title="{{item.title}} {{item._distance}}米" data-id="{{item.id}}" data-title="{{item.title}}" bindtap="onClick" value="{{item.category}}" label="{{item.address}}" />
+  <van-cell wx:for="{{stores}}" title="{{item.title}} {{item._distance}}米" data-id="{{item.id}}" data-title="{{item.title}}" bindtap="onClick" label="{{item.address}}">
+    <view style="margin-bottom: 5px;">{{item.category}}</view>
+    <van-button style="margin-top: 5px;" type="primary" size="small">添加食府</van-button>
+  </van-cell>
 </van-cell-group>
 </view>
