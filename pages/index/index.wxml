@@ -1,14 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-  <picker bindchange="bindPickerChange" mode="selector" value="{{index}}" range-key="name" range="{{restaurants}}">
-    <view class="picker" class="name" style="margin-bottom: 10px;" >
-      当前选择食府：{{restaurants[index].name}}
-    </view>
-  </picker>
-    <!-- <image class="image" src="https://qcloud.dpfile.com/pc/wH4AzxreNmtWa7VVaHZF_02W5Y07IwHAruaQ34V1wlEjB9PnpfRGfwdf-EZnI0PtJ-0BTbjj60XOL1huyULDDVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"></image> -->
-    <text class="dishes">{{foodData.message}}</text>
-    <van-button bindtap="onGoFood" data-food="{{foodData.food}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</van-button>
-    <van-button bindtap="onNext" style="margin-bottom: 10px;width: 50vw;" block>下一个</van-button>
     
+    <view wx:if="{{canIUseGetUserProfile}}">
+        <picker bindchange="bindPickerChange" mode="selector" value="{{index}}" range-key="name" range="{{restaurants}}">
+            <view class="picker" wx:if="{{restaurants.length>0}}" class="name" style="margin-bottom: 10px;">
+                当前选择食府：{{restaurants[index].name}}
+            </view>
+            <view class="picker" wx:else class="name" style="margin-bottom: 10px;">
+                当前选择食府：{{restaurants[index].name}}
+            </view>
+        </picker>
+        <!-- <image class="image" src="https://qcloud.dpfile.com/pc/wH4AzxreNmtWa7VVaHZF_02W5Y07IwHAruaQ34V1wlEjB9PnpfRGfwdf-EZnI0PtJ-0BTbjj60XOL1huyULDDVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"></image> -->
+        <text class="dishes">{{foodData.message}}</text>
+        <van-button bindtap="onGoFood" data-food="{{foodData.food}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</van-button>
+        <van-button bindtap="onNext" style="margin-bottom: 10px;width: 50vw;" block>下一个</van-button>
+    </view>
+    <button wx:else type="primary" bindtap="getUserProfile">请先登录</button>
+
 
 </view>

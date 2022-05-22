@@ -1,36 +1,41 @@
-// pages/history/history.js
+// pages/index/market.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    historys:[],
+    market:[],
+    activeNames:1
   },
-
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail,
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    wx.setNavigationBarTitle({
-      title: '吃啥记录',
-    })
-    let that = this;
-    wx.request({
-      url: 'http://101.35.113.218:7116/history/getHistory',
-      method:"POST",
-      data:{
-        user_id: getApp().globalData.userInfo.nickName,
-      },
-      success(res){
-        that.setData({
-          historys:res.data.history
-        })
-      }
-    })
-
+        this.onSearch({detail:""})
   },
-
+  onSearch(value){
+      let that = this;
+    wx.request({
+        url: 'http://101.35.113.218:7116/market/GetMarketForSearch',
+        method:"POST",
+        data:{
+          user_id: getApp().globalData.userInfo.nickName,
+          "key": value.detail
+        },
+        success(res){
+            console.log(res.data.market)
+            that.setData({
+                market:res.data.market
+            })
+        }
+      })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

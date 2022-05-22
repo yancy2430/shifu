@@ -1,0 +1,10 @@
+
+<van-search   show-action
+  bind:search="onSearch"
+ value="{{ value }}" placeholder="请输入搜索关键词" />
+ <van-collapse accordion value="{{ activeNames }}" bind:change="onChange">
+  <van-collapse-item wx:for="{{market}}" wx:key="id"  title="{{item.name}}" name="{{item.id}}">
+    <view slot="value">所属用户：{{item.user_id}}<van-button type="primary" size="mini">下载</van-button></view>
+    <van-cell wx:for="{{item.foods}}" wx:key="food" title="{{item.food}}"  label="{{item.address}}"></van-cell>
+  </van-collapse-item>
+</van-collapse>

@@ -22,7 +22,7 @@ Page({
       url: 'http://101.35.113.218:7116/restaurants/getOneRestaurant',
       method:"POST",
       data:{
-        "user_id": "string",
+        user_id: getApp().globalData.userInfo.nickName,
         "id":that.restaurant_id
       },
       success(res){
@@ -66,7 +66,7 @@ Page({
                 "address": "",
                 "name": res.content
               }],
-              user_id: "string",
+              user_id: getApp().globalData.userInfo.nickName,
             },
             success(res) {
               that.getList()

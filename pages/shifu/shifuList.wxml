@@ -1,9 +1,10 @@
 
 <van-cell-group>
-  <van-swipe-cell wx:for="{{restaurants}}" right-width="{{ 100 }}" left-width="{{ 0 }}">
+  <van-swipe-cell wx:for="{{restaurants}}" right-width="{{ 185 }}" left-width="{{ 0 }}">
   <van-cell bindtap="onShifu" data-id="{{item.id}}" title="{{item.name}}" is-link />
   <view slot="right">
     <view class="action">
+      <view class="uploadBtn" bindtap="uploadItem" data-id="{{item.id}}" data-name="{{item.name}}" >上传市场</view>
       <view class="editbtn" bindtap="updateItem" data-id="{{item.id}}" data-name="{{item.name}}" >改名</view>
       <view class="delbtn" bindtap="delItem" data-id="{{item.id}}">删除</view>
     </view>

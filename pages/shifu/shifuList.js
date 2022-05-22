@@ -25,7 +25,7 @@ Page({
       url: 'http://101.35.113.218:7116/restaurants/all',
       method: "POST",
       data: {
-        user_id: "string",
+        user_id: getApp().globalData.userInfo.nickName,
       },
       success(res) {
         console.log(res.data.data)
@@ -33,6 +33,21 @@ Page({
           restaurants: res.data.data
         })
       }
+    })
+  },
+  uploadItem(data){
+    wx.request({
+        url: 'http://101.35.113.218:7116/market/AddMarketForRestaurantId',
+        method: "POST",
+        data: {
+          id: data.target.dataset.id,
+          user_id: getApp().globalData.userInfo.nickName,
+        },
+        success(res){
+            wx.showToast({
+              title: res.data.message,
+            })
+        }
     })
   },
   updateItem(data) { //修改食府名
@@ -49,7 +64,7 @@ Page({
             data: {
               name: res.content,
               id: data.target.dataset.id,
-              user_id: "string",
+              user_id: getApp().globalData.userInfo.nickName,
             },
             success(res) {
               that.getList()
@@ -72,7 +87,7 @@ Page({
       url: 'url',
       data: {
         id: data.target.dataset.id,
-        user_id: "string",
+        user_id: getApp().globalData.userInfo.nickName,
       }
     })
   },
@@ -96,7 +111,7 @@ Page({
             method: "POST",
             data: {
               name: res.content,
-              user_id: "string",
+              user_id: getApp().globalData.userInfo.nickName,
             },
             success(res) {
               wx.showToast({
