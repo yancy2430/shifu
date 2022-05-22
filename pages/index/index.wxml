@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-    <text class="name" style="margin-bottom: 10px;" >{{foodData.food}}</text>
+    <text class="name" style="margin-bottom: 10px;" >{{foodData.food.name}}</text>
     <!-- <image class="image" src="https://qcloud.dpfile.com/pc/wH4AzxreNmtWa7VVaHZF_02W5Y07IwHAruaQ34V1wlEjB9PnpfRGfwdf-EZnI0PtJ-0BTbjj60XOL1huyULDDVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"></image> -->
     <text class="dishes">{{foodData.message}}</text>
     <van-button bindtap="onGoFood" data-food="{{foodData.food}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</van-button>

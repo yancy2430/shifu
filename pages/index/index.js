@@ -5,6 +5,7 @@ const app = getApp()
 Page({
   data: {
     foodData:{},
+    restaurants:[],
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
@@ -13,12 +14,26 @@ Page({
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
   },
   onLoad() {
+    let that = this;
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
       })
     }
-    let that = this;
+    //获取所有食府
+    wx.request({
+      url: 'http://101.35.113.218:7116//restaurants/all',
+      method:"POST",
+      data:{
+        user_id:"string",
+      },
+      success(res){
+        console.log(res)
+          that.setData({
+            restaurants:res.data
+          })
+      }
+    })
     wx.request({
       url: 'http://101.35.113.218:7116/restaurants/getRestaurants',
       method:"POST",
@@ -39,7 +54,7 @@ Page({
       title: '提示',
       cancelText:"自行前往",
       confirmText:"导航前往",
-      content: '选中了吃:'+item.currentTarget.dataset.food,
+      content: '选中了吃:'+item.currentTarget.dataset.food.name,
       success (res) {
         if (res.confirm) {
           console.log('用户点击确定')

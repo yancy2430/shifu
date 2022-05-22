@@ -6,6 +6,8 @@ Page({
    */
   data: {
     show: false,
+    addText: "",
+    restaurants: [],
   },
 
   /**
@@ -15,18 +17,104 @@ Page({
     wx.setNavigationBarTitle({
       title: '食府管理',
     })
+    this.getList()
   },
-  onShifu(){
+  getList() {
+    let that = this;
+    wx.request({
+      url: 'http://101.35.113.218:7116/restaurants/all',
+      method: "POST",
+      data: {
+        user_id: "string",
+      },
+      success(res) {
+        console.log(res.data.data)
+        that.setData({
+          restaurants: res.data.data
+        })
+      }
+    })
+  },
+  updateItem(data) { //修改食府名
+    let that = this;
+    wx.showModal({
+      title: '输入食府名称',
+      content: data.target.dataset.name,
+      editable: true,
+      success(res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'http://101.35.113.218:7116/restaurants/changeRestaurantName',
+            method: "POST",
+            data: {
+              name: res.content,
+              id: data.target.dataset.id,
+              user_id: "string",
+            },
+            success(res) {
+              that.getList()
+              wx.showToast({
+                title: res.data.message,
+                icon: 'success',
+                duration: 2000
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  delItem(data) { //删除食府
+    let that = this;
+    wx.request({
+      url: 'url',
+      data: {
+        id: data.target.dataset.id,
+        user_id: "string",
+      }
+    })
+  },
+  onShifu() {
     wx.navigateTo({
       url: '/pages/shifu/shifu',
     })
   },
-
-
+  onAdd() {
+    let that = this;
+  },
   showPopup() {
-    this.setData({ show: true });
+    wx.showModal({
+      title: '输入食府名称',
+      content: "",
+      editable: true,
+      success(res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'http://101.35.113.218:7116/restaurants/newRestaurant',
+            method: "POST",
+            data: {
+              name: res.content,
+              user_id: "string",
+            },
+            success(res) {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'success',
+                duration: 2000
+              })
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
   onClose() {
-    this.setData({ show: false });
+    this.setData({
+      show: false
+    });
   },
 })
