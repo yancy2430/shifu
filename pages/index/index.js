@@ -8,6 +8,8 @@ Page({
     restaurants:[],
     motto: 'Hello World',
     userInfo: {},
+    shifuData:{},
+    index:0,
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     canIUseGetUserProfile: false,
@@ -20,33 +22,61 @@ Page({
         canIUseGetUserProfile: true
       })
     }
+    this.onNext()
+    wx.request({
+      url: 'http://101.35.113.218:7116/restaurants/this',
+      method:"POST",
+      data:{
+        user_id:"string",
+      },
+      success(res){
+        wx.request({
+          url: 'http://101.35.113.218:7116/restaurants/getOneRestaurant',
+          method:"POST",
+          data:{
+            "user_id": "string",
+            "id":res.data.this
+          },
+          success(res){
+            console.log(res.data.data)
+            that.setData({
+              shifuData:res.data.data
+            })
+          }
+        })
+      }
+    })
     //获取所有食府
     wx.request({
-      url: 'http://101.35.113.218:7116//restaurants/all',
+      url: 'http://101.35.113.218:7116/restaurants/all',
       method:"POST",
       data:{
         user_id:"string",
       },
       success(res){
-        console.log(res)
+        console.log(res.data.data)
+        that.setData({
+          index:res.data.data.findIndex(function(item){
+            return item.name==='asdasw'
+          })
+        })
           that.setData({
-            restaurants:res.data
+            restaurants:res.data.data
           })
       }
     })
-    wx.request({
-      url: 'http://101.35.113.218:7116/restaurants/getRestaurants',
-      method:"POST",
-      data:{
-        user_id:"string",
+  },
+  onSelect(){
+    wx.showActionSheet({
+      itemList: ['A', 'B', 'C'],
+      success (res) {
+        console.log(res.tapIndex)
       },
-      success(res){
-          console.log(res)
-          that.setData({
-            foodData:res.data
-          })
+      fail (res) {
+        console.log(res.errMsg)
       }
     })
+    
   },
   onGoFood(item){
     console.log(item)
@@ -62,6 +92,19 @@ Page({
           console.log('用户点击取消')
         }
       }
+    })
+  },
+  bindPickerChange(value){
+    // console.log("bindPickerChange",value.detail.value)
+    let index = Number(value.detail.value);
+    let that = this;
+    wx.request({
+      url: 'http://101.35.113.218:7116/restaurants/changeThis',
+      method:"POST",
+      data:{
+        user_id:"string",
+        id:that.data.restaurants[index].id,
+      },
     })
   },
   onNext(){

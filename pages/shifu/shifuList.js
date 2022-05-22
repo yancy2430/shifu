@@ -76,9 +76,9 @@ Page({
       }
     })
   },
-  onShifu() {
+  onShifu(data) {
     wx.navigateTo({
-      url: '/pages/shifu/shifu',
+      url: '/pages/shifu/shifu?id='+data.currentTarget.dataset.id,
     })
   },
   onAdd() {
