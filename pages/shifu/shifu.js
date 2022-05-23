@@ -1,4 +1,5 @@
 // pages/shifu/shifu.js
+import {url} from '../../utils/url.js'
 Page({
 
   /**
@@ -22,7 +23,7 @@ Page({
       url: url + '/restaurants/getOneRestaurant',
       method:"POST",
       data:{
-        user_id: getApp().globalData.userInfo.nickName,
+        user_id: wx.getStorageSync('openid'),
         "id":that.restaurant_id
       },
       success(res){
@@ -66,7 +67,7 @@ Page({
                 "address": "",
                 "name": res.content
               }],
-              user_id: getApp().globalData.userInfo.nickName,
+              user_id: wx.getStorageSync('openid'),
             },
             success(res) {
               that.getList()

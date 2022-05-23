@@ -1,4 +1,5 @@
 // pages/index/my.js
+import {url} from '../../utils/url.js'
 Page({
 
   /**

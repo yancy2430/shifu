@@ -26,7 +26,7 @@ Page({
       url: url + '/restaurants/all',
       method: "POST",
       data: {
-        user_id: getApp().globalData.userInfo.nickName,
+        user_id: wx.getStorageSync('openid'),
       },
       success(res) {
         console.log(res.data.data)
@@ -42,7 +42,7 @@ Page({
         method: "POST",
         data: {
           id: data.target.dataset.id,
-          user_id: getApp().globalData.userInfo.nickName,
+          user_id: wx.getStorageSync('openid'),
         },
         success(res){
             wx.showToast({
@@ -65,7 +65,7 @@ Page({
             data: {
               name: res.content,
               id: data.target.dataset.id,
-              user_id: getApp().globalData.userInfo.nickName,
+              user_id: wx.getStorageSync('openid'),
             },
             success(res) {
               that.getList()
@@ -88,7 +88,7 @@ Page({
       url: 'url',
       data: {
         id: data.target.dataset.id,
-        user_id: getApp().globalData.userInfo.nickName,
+        user_id: wx.getStorageSync('openid'),
       }
     })
   },
@@ -112,7 +112,7 @@ Page({
             method: "POST",
             data: {
               name: res.content,
-              user_id: getApp().globalData.userInfo.nickName,
+              user_id: wx.getStorageSync('openid'),
             },
             success(res) {
               wx.showToast({

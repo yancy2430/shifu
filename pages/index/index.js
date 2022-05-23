@@ -1,11 +1,11 @@
 // index.js
 // 获取应用实例
 import {url} from '../../utils/url.js'
-console.log(url)
 const app = getApp()
 
 Page({
   data: {
+    code: '',
     foodData: {},
     restaurants: [],
     motto: 'Hello World',
@@ -19,6 +19,44 @@ Page({
   },
   onLoad() {
     let that = this;
+    console.log(wx.getStorageSync('openid'))
+    if (!wx.getStorageSync('openid')){
+      wx.login({
+        success(res) {
+            that.setData({
+                code: res.code
+            });
+      wx.request({
+        url: url + '/wx/getOpenId',
+        method: "POST",
+        data: {
+          params: {
+              appid: app.data.APP_ID,
+              secret: app.data.APP_SECRET,
+              js_code: res.code,
+              grant_type: 'authorization_code'
+          }
+        },
+        success(res){
+          wx.setStorageSync('openid', res.data.openid)
+        },
+        fail(res){
+          that.onLoad()
+        }
+      })
+        },
+        fail(res){
+          that.onLoad()
+        }
+      })
+    }
+    wx.request({
+      url: url + '/wx/isWxRegis',
+      method: "POST",
+      data: {
+        user_id: wx.getStorageSync('openid'),
+      },
+    })
     if (wx.getStorageSync('userInfo')) {
       this.setData({
         canIUseGetUserProfile: true
@@ -27,7 +65,7 @@ Page({
         url: url + '/restaurants/this',
         method: "POST",
         data: {
-          user_id: getApp().globalData.userInfo.nickName,
+          user_id: wx.getStorageSync('openid'),
         },
         success(res) {
           console.log("this", res.data)
@@ -35,7 +73,7 @@ Page({
             url: url + '/restaurants/getOneRestaurant',
             method: "POST",
             data: {
-              user_id: getApp().globalData.userInfo.nickName,
+              user_id: wx.getStorageSync('openid'),
               "id": res.data.this
             },
             success(result) {
@@ -44,7 +82,7 @@ Page({
                 url: url + '/restaurants/all',
                 method: "POST",
                 data: {
-                  user_id: getApp().globalData.userInfo.nickName,
+                  user_id: wx.getStorageSync('openid'),
                 },
                 success(res) {
                   that.setData({
@@ -86,7 +124,7 @@ Page({
           url: url + '/restaurants/go',
           method: "POST",
           data: {
-            user_id: getApp().globalData.userInfo.nickName,
+            user_id: wx.getStorageSync('openid'),
             id: item.currentTarget.dataset.food.id,
           },
           success(res){
@@ -106,7 +144,7 @@ Page({
       url: url + '/restaurants/changeThis',
       method: "POST",
       data: {
-        user_id: getApp().globalData.userInfo.nickName,
+        user_id: wx.getStorageSync('openid'),
         id: that.data.restaurants[index].id,
       },
       success(res){
@@ -120,7 +158,7 @@ Page({
       url: url + '/restaurants/next',
       method: "POST",
       data: {
-        user_id: getApp().globalData.userInfo.nickName,
+        user_id: wx.getStorageSync('openid'),
       },
       success(res) {
         console.log(res)

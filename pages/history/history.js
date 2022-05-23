@@ -20,7 +20,7 @@ Page({
       url: url + '/history/getHistory',
       method:"POST",
       data:{
-        user_id: getApp().globalData.userInfo.nickName,
+        user_id: wx.getStorageSync('openid'),
       },
       success(res){
         that.setData({

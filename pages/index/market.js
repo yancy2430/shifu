@@ -1,4 +1,5 @@
 // pages/index/market.js
+import {url} from '../../utils/url.js'
 Page({
 
   /**
@@ -25,7 +26,7 @@ Page({
         url: url + '/market/GetMarketForSearch',
         method:"POST",
         data:{
-          user_id: getApp().globalData.userInfo.nickName,
+          user_id: wx.getStorageSync('openid'),
           "key": value.detail
         },
         success(res){

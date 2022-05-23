@@ -1,4 +1,5 @@
 // pages/index/map.js
+import {url} from '../../utils/url.js'
 Page({
 
   /**
@@ -31,7 +32,7 @@ Page({
         url: url + '/restaurants/this',
         method: "POST",
         data: {
-          user_id: getApp().globalData.userInfo.nickName,
+          user_id: wx.getStorageSync('openid'),
         },
         success(res){
             console.log("res.data.this",res.data.this)
@@ -77,7 +78,7 @@ Page({
             "address": data.currentTarget.dataset.address,
             "name": data.currentTarget.dataset.name
           }],
-          user_id: getApp().globalData.userInfo.nickName,
+          user_id: wx.getStorageSync('openid'),
         },
         success(res) {
           wx.showToast({
