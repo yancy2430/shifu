@@ -1,5 +1,7 @@
 // index.js
 // 获取应用实例
+import {url} from '../../utils/url.js'
+console.log(url)
 const app = getApp()
 
 Page({
@@ -22,7 +24,7 @@ Page({
         canIUseGetUserProfile: true
       })
       wx.request({
-        url: 'http://101.35.113.218:7116/restaurants/this',
+        url: url + '/restaurants/this',
         method: "POST",
         data: {
           user_id: getApp().globalData.userInfo.nickName,
@@ -30,7 +32,7 @@ Page({
         success(res) {
           console.log("this", res.data)
           wx.request({
-            url: 'http://101.35.113.218:7116/restaurants/getOneRestaurant',
+            url: url + '/restaurants/getOneRestaurant',
             method: "POST",
             data: {
               user_id: getApp().globalData.userInfo.nickName,
@@ -39,7 +41,7 @@ Page({
             success(result) {
               //获取所有食府
               wx.request({
-                url: 'http://101.35.113.218:7116/restaurants/all',
+                url: url + '/restaurants/all',
                 method: "POST",
                 data: {
                   user_id: getApp().globalData.userInfo.nickName,
@@ -81,7 +83,7 @@ Page({
           console.log('用户点击取消')
         }
         wx.request({
-          url: 'http://101.35.113.218:7116/restaurants/go',
+          url: url + '/restaurants/go',
           method: "POST",
           data: {
             user_id: getApp().globalData.userInfo.nickName,
@@ -101,7 +103,7 @@ Page({
     let index = Number(value.detail.value);
     let that = this;
     wx.request({
-      url: 'http://101.35.113.218:7116/restaurants/changeThis',
+      url: url + '/restaurants/changeThis',
       method: "POST",
       data: {
         user_id: getApp().globalData.userInfo.nickName,
@@ -115,7 +117,7 @@ Page({
   onNext() {
     let that = this;
     wx.request({
-      url: 'http://101.35.113.218:7116/restaurants/next',
+      url: url + '/restaurants/next',
       method: "POST",
       data: {
         user_id: getApp().globalData.userInfo.nickName,
@@ -142,7 +144,7 @@ Page({
         wx.setStorageSync('userInfo', res.userInfo)
         wx.setStorageSync('hasUserInfo', true)
         wx.request({
-          url: 'http://101.35.113.218:7116/wx/isWxRegis',
+          url: url + '/wx/isWxRegis',
           method:"POST",
           data:{
             "user_id": res.userInfo.nickName

@@ -1,4 +1,5 @@
 // pages/shifu/shifuList.js
+import {url} from '../../utils/url'
 Page({
 
   /**
@@ -22,7 +23,7 @@ Page({
   getList() {
     let that = this;
     wx.request({
-      url: 'http://101.35.113.218:7116/restaurants/all',
+      url: url + '/restaurants/all',
       method: "POST",
       data: {
         user_id: getApp().globalData.userInfo.nickName,
@@ -37,7 +38,7 @@ Page({
   },
   uploadItem(data){
     wx.request({
-        url: 'http://101.35.113.218:7116/market/AddMarketForRestaurantId',
+        url: url + '/market/AddMarketForRestaurantId',
         method: "POST",
         data: {
           id: data.target.dataset.id,
@@ -59,7 +60,7 @@ Page({
       success(res) {
         if (res.confirm) {
           wx.request({
-            url: 'http://101.35.113.218:7116/restaurants/changeRestaurantName',
+            url: url + '/restaurants/changeRestaurantName',
             method: "POST",
             data: {
               name: res.content,
@@ -107,7 +108,7 @@ Page({
       success(res) {
         if (res.confirm) {
           wx.request({
-            url: 'http://101.35.113.218:7116/restaurants/newRestaurant',
+            url: url + '/restaurants/newRestaurant',
             method: "POST",
             data: {
               name: res.content,

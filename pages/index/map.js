@@ -28,7 +28,7 @@ Page({
       }
      })
      wx.request({
-        url: 'http://101.35.113.218:7116/restaurants/this',
+        url: url + '/restaurants/this',
         method: "POST",
         data: {
           user_id: getApp().globalData.userInfo.nickName,
@@ -69,7 +69,7 @@ Page({
       console.log(data.currentTarget.dataset.name)
     let that = this;
       wx.request({
-        url: 'http://101.35.113.218:7116/restaurants/newFoods',
+        url: url + '/restaurants/newFoods',
         method: "POST",
         data: {
           restaurant_id: that.restaurant_id,

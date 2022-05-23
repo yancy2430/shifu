@@ -19,7 +19,7 @@ Page({
   getList(){//获取食物列表
     let that = this;
     wx.request({
-      url: 'http://101.35.113.218:7116/restaurants/getOneRestaurant',
+      url: url + '/restaurants/getOneRestaurant',
       method:"POST",
       data:{
         user_id: getApp().globalData.userInfo.nickName,
@@ -58,7 +58,7 @@ Page({
       success(res) {
         if (res.confirm) {
           wx.request({
-            url: 'http://101.35.113.218:7116/restaurants/newFoods',
+            url: url + '/restaurants/newFoods',
             method: "POST",
             data: {
               restaurant_id: that.restaurant_id,
