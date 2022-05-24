@@ -61,50 +61,52 @@ Page({
       this.setData({
         canIUseGetUserProfile: true
       })
+      that.onGetRestaurantInfo()
+    }
+},
+onGetRestaurantInfo(){
+  let that = this
+  wx.request({
+    url: url + '/restaurants/this',
+    method: "POST",
+    data: {
+      user_id: wx.getStorageSync('openid'),
+    },
+    success(res) {
+      console.log("this", res.data)
       wx.request({
-        url: url + '/restaurants/this',
+        url: url + '/restaurants/getOneRestaurant',
         method: "POST",
         data: {
           user_id: wx.getStorageSync('openid'),
+          "id": res.data.this
         },
-        success(res) {
-          console.log("this", res.data)
+        success(result) {
+          //获取所有食府
           wx.request({
-            url: url + '/restaurants/getOneRestaurant',
+            url: url + '/restaurants/all',
             method: "POST",
             data: {
               user_id: wx.getStorageSync('openid'),
-              "id": res.data.this
             },
-            success(result) {
-              //获取所有食府
-              wx.request({
-                url: url + '/restaurants/all',
-                method: "POST",
-                data: {
-                  user_id: wx.getStorageSync('openid'),
-                },
-                success(res) {
-                  that.setData({
-                    index: res.data.data.findIndex(function (item) {
-                      return item.name === result.data.data.name
-                    }),
-                    restaurants: res.data.data
-                  })
-                }
-              })
+            success(res) {
               that.setData({
-                shifuData: res.data.data
+                index: res.data.data.findIndex(function (item) {
+                  return item.name === result.data.data.name
+                }),
+                restaurants: res.data.data
               })
-              that.onNext()
             }
           })
+          that.setData({
+            shifuData: res.data.data
+          })
+          that.onNext()
         }
       })
     }
-    
-
-  },
+  })
+},
   onGoFood(item) {
     wx.showModal({
       title: '提示',
@@ -200,6 +202,22 @@ Page({
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
+    })
+  },
+  onShow(){
+    let that = this
+    wx.request({
+      url: url + '/restaurants/this',
+      method: "POST",
+      data: {
+        user_id: wx.getStorageSync('openid'),
+      },
+      success(res){
+        let user_this = res.data.this
+        if (that.data.index != user_this){
+          that.onGetRestaurantInfo()
+        }
+      }
     })
   }
 })
