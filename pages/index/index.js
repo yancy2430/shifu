@@ -163,7 +163,7 @@ Page({
                         })
                         return
                       }
-                      console.log("dasdas",res.data.food.name)
+                      console.log("dasdas", res.data.food.name)
                       let endPoint = JSON.stringify({ //终点
                         'name': res.data.food.name,
                         'location': {
@@ -242,9 +242,11 @@ Page({
         setTimeout(function () {
           wx.hideLoading()
           clearInterval(dsq)
-          that.setData({
-            foodData: res.data.food
-          })
+          setTimeout(function () {
+            that.setData({
+              foodData: res.data.food
+            })
+          }, 200)
           // clearInterval(dsq)
         }, 2000)
 
