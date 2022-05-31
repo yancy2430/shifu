@@ -22,4 +22,7 @@ page{
 .dishes{
   margin: 5px 20px 15px;
   text-align: center;
+  padding: 10px;
+  background-color: #eeeeee;
+  height: 10vh;
 }

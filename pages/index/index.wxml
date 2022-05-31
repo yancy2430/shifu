@@ -16,10 +16,12 @@
             </view>
         </picker>
         <!-- <image class="image" src="https://qcloud.dpfile.com/pc/wH4AzxreNmtWa7VVaHZF_02W5Y07IwHAruaQ34V1wlEjB9PnpfRGfwdf-EZnI0PtJ-0BTbjj60XOL1huyULDDVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"></image> -->
-        <text class="dishes">当前食物为：{{foodData.name}}</text>
+          <view class="dishes">当前食物为：{{foodData.name}}</view>
           <block wx:if="{{shifu.foods.length>0}}">
-          <van-button bindtap="onGoFood" data-food="{{foodData.food}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</van-button>
-          <van-button bindtap="onNext" style="margin-bottom: 10px;width: 50vw;" block>下一个</van-button>
+          <view style="width: 100vw;margin-top: 10vh;">
+            <button bindtap="onGoFood" data-food="{{foodData.food}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</button>
+          <button bindtap="onNext" style="margin-bottom: 10px;width: 50vw;" block>下一个</button>
+          </view>
         </block>
     </view>
     <button wx:else type="primary" bindtap="getUserProfile">请先登录</button>
