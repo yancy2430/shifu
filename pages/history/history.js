@@ -17,7 +17,7 @@ Page({
     })
     let that = this;
     wx.request({
-      url: url + '/history/getHistory',
+      url: 'http://101.35.113.218:7116/history/getHistory',
       method:"POST",
       data:{
         user_id: wx.getStorageSync('openid'),

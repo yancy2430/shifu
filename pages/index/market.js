@@ -22,6 +22,9 @@ Page({
   },
   onSearch(value){
       let that = this;
+      wx.showLoading({
+        title: '加载中',
+      })
     wx.request({
         url: url + '/market/GetMarketForSearch',
         method:"POST",
@@ -30,7 +33,7 @@ Page({
           "key": value.detail
         },
         success(res){
-            console.log(res.data.market)
+          wx.hideLoading()
             that.setData({
                 market:res.data.market
             })
@@ -47,7 +50,12 @@ Page({
         id: data.currentTarget.dataset.id
       },
       success(res){
-
+        wx.showToast({
+          title: '下载市场成功',
+          icon: 'success',
+          duration: 2000
+        })
+        
       }
     })
   }

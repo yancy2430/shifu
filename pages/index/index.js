@@ -178,7 +178,6 @@ Page({
     wx.showLoading({
       title: '正在选择食物',
     })
-
     wx.request({
       url: url + '/restaurants/next',
       method: "POST",
@@ -187,21 +186,26 @@ Page({
       },
       success(res) {
         let i = 0;
+        console.log(res)
         let dsq = setInterval(function () {
-          console.log(that.data.shifu.foods[0])
-          // that.setData({
-          //   foodData: that.data.shifu.foods[i]
-          // })
+          console.log(that.data.shifu.foods[i])
+          that.setData({
+            foodData: that.data.shifu.foods[i]
+          })
           console.log(i)
-          i++;
+          if(i<that.data.shifu.foods.length){
+            i++;
+          }else{
+            i=0;
+          }
         }, 200)
-        clearInterval(dsq)
         that.setData({
           foodData: res.data
         })
         setTimeout(function () {
           wx.hideLoading()
           console.log("停止")
+          clearInterval(dsq)
           // clearInterval(dsq)
         }, 2000)
 
