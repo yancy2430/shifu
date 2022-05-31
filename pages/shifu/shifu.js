@@ -36,13 +36,54 @@ Page({
       }
     })
   },
-  delFood(){
+  updateFood(data){
+    let that = this;
+    wx.showModal({
+      title: '输入新食物名称',
+      content: data.target.dataset.name,
+      editable: true,
+      success(res) {
+        if (res.confirm) {
+          wx.request({
+            url: url + '/restaurants/newRestaurant',
+            method: "POST",
+            data: {
+              name: res.content,
+              user_id: wx.getStorageSync('openid'),
+            },
+            success(res) {
+              wx.showToast({
+                title: res.data.message,
+                icon: 'success',
+                duration: 2000
+              })
+              that.getList()
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  delFood(data){
+    let that = this;
     wx.showModal({
       title: '提示',
       content: '确定删除此食物？',
       success (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
+          wx.request({
+            url: 'http://101.35.113.218:7116/restaurants/DeleteFood',
+            method:'POST',
+            data:{
+              id: data.target.dataset.id,
+              user_id: wx.getStorageSync('openid'),
+            },
+            success(res){
+              that.getList()
+            }
+          })
         } else if (res.cancel) {
           console.log('用户点击取消')
         }

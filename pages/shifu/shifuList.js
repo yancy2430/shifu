@@ -22,6 +22,9 @@ Page({
   },
   getList() {
     let that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
     wx.request({
       url: url + '/restaurants/all',
       method: "POST",
@@ -29,6 +32,7 @@ Page({
         user_id: wx.getStorageSync('openid'),
       },
       success(res) {
+        wx.hideLoading()
         console.log(res.data.data)
         that.setData({
           restaurants: res.data.data
@@ -85,10 +89,14 @@ Page({
   delItem(data) { //删除食府
     let that = this;
     wx.request({
-      url: 'url',
+      url: 'http://101.35.113.218:7116/restaurants/Delete',
+      method:'POST',
       data: {
         id: data.target.dataset.id,
         user_id: wx.getStorageSync('openid'),
+      },
+      success(){
+        that.getList()
       }
     })
   },
@@ -101,6 +109,7 @@ Page({
     let that = this;
   },
   showPopup() {
+    let that = this;
     wx.showModal({
       title: '输入食府名称',
       content: "",
@@ -120,6 +129,7 @@ Page({
                 icon: 'success',
                 duration: 2000
               })
+              that.getList()
             }
           })
         } else if (res.cancel) {
