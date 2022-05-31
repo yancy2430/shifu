@@ -1,4 +1,7 @@
 // pages/history/history.js
+import {
+  url
+} from '../../utils/url.js'
 Page({
 
   /**
