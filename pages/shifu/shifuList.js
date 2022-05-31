@@ -88,17 +88,30 @@ Page({
   },
   delItem(data) { //删除食府
     let that = this;
-    wx.request({
-      url: 'http://101.35.113.218:7116/restaurants/Delete',
-      method:'POST',
-      data: {
-        id: data.target.dataset.id,
-        user_id: wx.getStorageSync('openid'),
-      },
-      success(){
-        that.getList()
+    wx.showModal({
+      title: '提示',
+      content: '确定删除此食府？',
+      success (res) {
+        if (res.confirm) {
+          wx.request({
+            url: 'http://101.35.113.218:7116/restaurants/Delete',
+            method:'POST',
+            data: {
+              id: data.target.dataset.id,
+              user_id: wx.getStorageSync('openid'),
+            },
+            success(){
+              that.getList()
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
     })
+
+
+    
   },
   onShifu(data) {
     wx.navigateTo({
