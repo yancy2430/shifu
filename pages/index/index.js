@@ -136,7 +136,6 @@ Page({
         id: item.currentTarget.dataset.id,
       },
       success(res) {
-        console.log(res)
         wx.showModal({
           title: '提示',
           cancelText: "自行前往",
@@ -144,10 +143,50 @@ Page({
           content: res.data.message,
           success(resd) {
             if (resd.confirm) {
-              console.log('用户点击确定')
-              wx.showToast({
-                title: '功能暂未开放',
+              console.log('用户点击确定', res.data.food)
+              if (res.data.food.address == '') {
+                wx.showToast({
+                  title: "地址不存在",
+                })
+                return
+              }
+              wx.getLocation({
+                type: 'wgs84',
+                success(locad) {
+                  wx.request({
+                    url: 'https://apis.map.qq.com/ws/geocoder/v1/?address=' + res.data.food.address + '&key=S4TBZ-6S6RO-XNJWW-SL4J6-LA2AK-4JF45',
+                    success(ress) {
+                      console.log("ress", ress.data)
+                      if (ress.data.status != 0) {
+                        wx.showToast({
+                          title: ress.data.message,
+                        })
+                        return
+                      }
+                      console.log("dasdas",res.data.food.name)
+                      let endPoint = JSON.stringify({ //终点
+                        'name': res.data.food.name,
+                        'location': {
+                          'lat': ress.data.result.location.lat,
+                          'lng': ress.data.result.location.lng
+                        }
+                      })
+                      console.log(endPoint)
+                      wx.navigateToMiniProgram({
+                        appId: 'wx7643d5f831302ab0', //要打开的小程序 appId
+                        path: 'pages/multiScheme/multiScheme?endLoc=' + endPoint, //打开的页面路径，如果为空则打开首页
+                        fail: function () {
+                          wx.showToast({
+                            icon: 'none',
+                            title: '打开失败，请重试'
+                          })
+                        }
+                      })
+                    }
+                  })
+                }
               })
+
             } else if (resd.cancel) {
               wx.showToast({
                 title: res.data.message,
@@ -155,11 +194,11 @@ Page({
             }
           }
         })
-        
+
 
       }
     })
-    
+
   },
   bindPickerChange(value) {
     // console.log("bindPickerChange",value.detail.value)
@@ -190,26 +229,22 @@ Page({
       },
       success(res) {
         let i = 0;
-        console.log(res)
         let dsq = setInterval(function () {
-          console.log(that.data.shifu.foods[i])
           that.setData({
             foodData: that.data.shifu.foods[i]
           })
-          console.log(i)
-          if(i<that.data.shifu.foods.length){
+          if (i < that.data.shifu.foods.length) {
             i++;
-          }else{
-            i=0;
+          } else {
+            i = 0;
           }
         }, 200)
-        that.setData({
-          foodData: res.data
-        })
         setTimeout(function () {
           wx.hideLoading()
-          console.log("停止")
           clearInterval(dsq)
+          that.setData({
+            foodData: res.data.food
+          })
           // clearInterval(dsq)
         }, 2000)
 
