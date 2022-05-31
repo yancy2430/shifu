@@ -19,7 +19,7 @@
           <view class="dishes">当前食物为：{{foodData.name}}</view>
           <block wx:if="{{shifu.foods.length>0}}">
           <view style="width: 100vw;margin-top: 10vh;">
-            <button bindtap="onGoFood" data-food="{{foodData.food}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</button>
+            <button bindtap="onGoFood" data-id="{{foodData.id}}" style="margin-bottom: 10px;width: 50vw;" type="primary" block>就它了</button>
           <button bindtap="onNext" style="margin-bottom: 10px;width: 50vw;" block>下一个</button>
           </view>
         </block>

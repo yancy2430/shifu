@@ -18,7 +18,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-        this.onSearch({detail:""})
   },
   onSearch(value){
       let that = this;
@@ -33,12 +32,19 @@ Page({
           "key": value.detail
         },
         success(res){
+          wx.stopPullDownRefresh()
           wx.hideLoading()
             that.setData({
                 market:res.data.market
             })
         }
       })
+  },
+  onShow(){
+    this.onSearch({detail:""})
+  },
+  onPullDownRefresh(){
+    this.onSearch({detail:""})
   },
   getShifu(data){
     console.log(data)

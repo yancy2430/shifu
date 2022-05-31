@@ -127,35 +127,39 @@ Page({
     })
   },
   onGoFood(item) {
-    wx.showModal({
-      title: '提示',
-      cancelText: "自行前往",
-      confirmText: "导航前往",
-      content: '选中了吃:' + item.currentTarget.dataset.food.name,
-      success(resd) {
-        wx.request({
-          url: url + '/restaurants/go',
-          method: "POST",
-          data: {
-            user_id: wx.getStorageSync('openid'),
-            id: item.currentTarget.dataset.food.id,
-          },
-          success(res) {
+    console.log(item)
+    wx.request({
+      url: url + '/restaurants/go',
+      method: "POST",
+      data: {
+        user_id: wx.getStorageSync('openid'),
+        id: item.currentTarget.dataset.id,
+      },
+      success(res) {
+        console.log(res)
+        wx.showModal({
+          title: '提示',
+          cancelText: "自行前往",
+          confirmText: "导航前往",
+          content: res.data.message,
+          success(resd) {
             if (resd.confirm) {
               console.log('用户点击确定')
               wx.showToast({
-                title: '功能暂未开放,请自行前往',
+                title: '功能暂未开放',
               })
             } else if (resd.cancel) {
               wx.showToast({
                 title: res.data.message,
               })
             }
-
           }
         })
+        
+
       }
     })
+    
   },
   bindPickerChange(value) {
     // console.log("bindPickerChange",value.detail.value)
