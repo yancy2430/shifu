@@ -12,6 +12,7 @@ Page({
         motto: 'Hello World',
         userInfo: {},
         shifuData: {},
+        notSelect:false,
         index: 0,
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
@@ -67,6 +68,19 @@ Page({
     },
     onGetRestaurantInfo() {
         let that = this
+        //获取所有食府
+        wx.request({
+          url: url + '/restaurants/all',
+          method: "POST",
+          data: {
+              user_id: wx.getStorageSync('openid'),
+          },
+          success(res) {
+              that.setData({
+                  restaurants: res.data.data
+              })
+          }
+      })
         wx.request({
             url: url + '/restaurants/this',
             method: "POST",
@@ -74,7 +88,14 @@ Page({
                 user_id: wx.getStorageSync('openid'),
             },
             success(res) {
-                console.log("this", res.data)
+              console.log(res.data.this==null)
+                if(res.data.this==null){
+                  that.setData({
+                    notSelect:true
+                  })
+                  console.log(that.data.notSelect)
+                  return;
+                }
                 wx.request({
                     url: url + '/restaurants/getOneRestaurant',
                     method: "POST",
@@ -83,24 +104,11 @@ Page({
                         "id": res.data.this
                     },
                     success(result) {
-                        //获取所有食府
-                        wx.request({
-                            url: url + '/restaurants/all',
-                            method: "POST",
-                            data: {
-                                user_id: wx.getStorageSync('openid'),
-                            },
-                            success(res) {
-                                that.setData({
-                                    index: res.data.data.findIndex(function (item) {
-                                        return item.name === result.data.data.name
-                                    }),
-                                    restaurants: res.data.data
-                                })
-                            }
-                        })
                         that.setData({
-                            shifuData: res.data.data
+                            shifuData: res.data.data,
+                            index: that.data.restaurants.findIndex(function (item) {
+                              return item.name === result.data.data.name
+                          }),
                         })
                         that.onNext()
                     }

@@ -7,7 +7,13 @@
                 当前选择食府：{{restaurants[index].name}}
             </view>
             <view class="picker" wx:else class="name" style="margin-bottom: 10px;">
-                当前选择食府：{{restaurants[index].name}}
+                
+                <block wx:if="{{notSelect}}">
+                当前未选择食府，请选择
+                </block>
+                <block wx:else>
+                当前选择食府：{{restaurants[index].name}}{{notSelect}}
+                </block>
             </view>
         </picker>
         <!-- <image class="image" src="https://qcloud.dpfile.com/pc/wH4AzxreNmtWa7VVaHZF_02W5Y07IwHAruaQ34V1wlEjB9PnpfRGfwdf-EZnI0PtJ-0BTbjj60XOL1huyULDDVEuLYk00OmSS1IdNpm8K8sG4JN9RIm2mTKcbLtc2o2vfCF2ubeXzk49OsGrXt_KYDCngOyCwZK-s3fqawWswzk.jpg"></image> -->
